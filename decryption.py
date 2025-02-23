@@ -1,18 +1,11 @@
-# decryption.py
 import cv2
-
-# Function to map ASCII values to characters
 def create_ascii_dict():
     return {i: chr(i) for i in range(256)}
-
-# Load the image
 def load_image(path):
     img = cv2.imread(path)
     if img is None:
         raise FileNotFoundError(f"Image at path '{path}' not found.")
     return img
-
-# Extract the message from the image
 def decrypt_message(img, msg_length):
     ascii_to_char = create_ascii_dict()
     binary_msg = ''
@@ -29,7 +22,6 @@ def decrypt_message(img, msg_length):
         binary_msg += str(pixel_value & 1)
         idx += 1
 
-    # Convert binary to characters
     message = ''
     for i in range(0, len(binary_msg), 8):
         byte = binary_msg[i:i+8]
@@ -37,7 +29,6 @@ def decrypt_message(img, msg_length):
 
     return message
 
-# Main decryption function
 def main():
     img_path = "encryptedImage.png"
     img = load_image(img_path)
